@@ -344,6 +344,7 @@ main {
     line-height: 1.1;
     background: var(--gradient-text);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -390,6 +391,7 @@ main {
     padding: 1px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), var(--color-gold-base), rgba(255, 255, 255, 0.1));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
@@ -435,4 +437,152 @@ footer {
 .gold-text {
     color: var(--color-gold-base);
     font-weight: 500;
+}
+
+/* ---------------- Mobile Menu Buttons ---------------- */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    z-index: 101;
+    /* Ensure it's above the mobile nav */
+}
+
+.menu-toggle svg {
+    width: 28px;
+    height: 28px;
+}
+
+.menu-toggle .line1,
+.menu-toggle .line2,
+.menu-toggle .line3 {
+    transition: all var(--transition-fast);
+    transform-origin: center;
+}
+
+.menu-toggle.active .line1 {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.active .line2 {
+    opacity: 0;
+}
+
+.menu-toggle.active .line3 {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ---------------- Responsiveness (Mobiles & Tablets) ---------------- */
+@media (max-width: 900px) {
+
+    /* Navbar adjustments */
+    .nav-container {
+        padding: 0 1.5rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: var(--nav-bg);
+        backdrop-filter: var(--nav-blur);
+        -webkit-backdrop-filter: var(--nav-blur);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 6rem 2rem 2rem;
+        gap: 1.5rem;
+        transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        border-left: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links>li {
+        width: 100%;
+        height: auto;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 0.8rem 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Mobile Dropdown styles */
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0.5rem 0 0 1rem;
+        min-width: 100%;
+        display: none;
+    }
+
+    /* Wyświetlanie dropdownu na mobile - domyślnie ukryte, 
+       można rozbudować o JS click, ale w najprostszej wersji 
+       odkryjemy na sztywno przy hover lub gdy jesteśmy na mobile rozwijamy zawsze */
+    .nav-links>li:hover .dropdown-menu,
+    .nav-links>li:active .dropdown-menu {
+        display: block;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: 8rem 1.5rem 5rem !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 8vw, 3rem) !important;
+    }
+
+    .hero p {
+        font-size: 1rem !important;
+    }
+
+    /* Page Headers in standard pages */
+    .page-header {
+        padding: 6rem 1.5rem 3rem !important;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem !important;
+    }
+
+    /* Content and Cards layout adjustments */
+    .content {
+        padding: 0 1.5rem 4rem !important;
+    }
+
+    .card {
+        padding: 1.5rem !important;
+    }
+
+    .card h2 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Footer adjustments */
+    footer {
+        padding: 2rem 1.5rem !important;
+    }
 }

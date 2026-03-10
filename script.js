@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Ładujemy nagłówek i z callbackiem przypisujemy logikę zmiany motywu
+    // Ładujemy nagłówek i z callbackiem przypisujemy logikę zmiany motywu oraz menu mobilnego
     loadComponent("header-placeholder", "header.html", function() {
         const themeToggleBtn = document.getElementById('theme-toggle');
         
@@ -47,6 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     localStorage.setItem('theme', 'dark');
                 }
+            });
+        }
+
+        // Logika menu mobilnego
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenuToggle && navLinks) {
+            mobileMenuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
             });
         }
     });
