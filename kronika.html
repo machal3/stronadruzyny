@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
     <style>
         .page-header {
             padding: 8rem 2rem 5rem;
@@ -43,57 +43,74 @@
 
         <section class="content" style="max-width: 900px;">
 
-            <!-- Setup Panel (Widoczny tylko gdy brak configu) -->
-            <div id="setup-panel" class="card admin-panel"
-                style="text-align: left; padding: 2rem; margin-bottom: 2rem; border-top: 4px solid red; display: none;">
-                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: red;">⚠️ Wymagana Inicjalizacja Kroniki
-                    (Tylko raz!)</h2>
-                <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
-                    Strona nie wykryła pliku konfiguracyjnego. Aby włączyć bezpieczne dodawanie postów hasłem, musisz
-                    jednorazowo podać swój <strong>GitHub Token (PAT)</strong> oraz ustalić <strong>Nowe Hasło</strong>
-                    dla redaktorów. Token zostanie zaszyfrowany (AES) podanym hasłem i bezpiecznie zapisany w
-                    repozytorium.</p>
-                <form id="setup-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                    <input type="password" id="setup-pat" placeholder="Wklej tutaj swój długi GitHub Token (PAT)"
-                        required
-                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid red; background: rgba(255, 0, 0, 0.05); color: var(--text-primary); font-family: monospace;">
-                    <input type="password" id="setup-password" placeholder="Wymyśl proste Hasło (np. KluczDruzyny!)"
-                        required
-                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
-                    <button type="submit" id="setup-btn"
-                        style="align-self: flex-start; padding: 0.8rem 1.5rem; border-radius: 8px; background: red; color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
-                        Zaszyfruj i Skonfiguruj Kronikę
-                    </button>
-                    <span id="setup-status" style="font-size: 0.9rem; font-weight: 500;"></span>
-                </form>
-            </div>
+            <!-- Floating Action Button (FAB) -->
+            <button id="fab-add" class="fab" title="Otwórz panel administratora">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
 
-            <!-- Admin Panel for adding posts (Zwykły tryb) -->
-            <div id="add-panel" class="card admin-panel"
-                style="text-align: left; padding: 2rem; margin-bottom: 2rem; border-top: 4px solid var(--color-gold-base); display: none;">
-                <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Dodaj nowy wpis do Kroniki</h2>
-                <form id="kronika-form" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Modal Overlay -->
+            <div id="admin-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <button id="close-modal" class="modal-close">&times;</button>
 
-                    <input type="password" id="post-password" placeholder="Hasło autoryzacyjne" required
-                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-surface-hover); color: var(--text-primary); font-family: inherit;">
-
-                    <div style="display: flex; gap: 1rem; width: 100%;">
-                        <input type="text" id="post-title" placeholder="Tytuł wpisu" required
-                            style="flex-grow: 1; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
-                        <input type="text" id="post-date" placeholder="Data (np. 24 Sierpnia 2026)" required
-                            style="flex-grow: 1; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
+                    <!-- Setup Panel (Widoczny tylko gdy brak configu) -->
+                    <div id="setup-panel" class="card admin-panel"
+                        style="text-align: left; padding: 2.5rem; border-top: 4px solid red; display: none;">
+                        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: red;">⚠️ Wymagana Inicjalizacja
+                            Kroniki (Tylko raz!)</h2>
+                        <p
+                            style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                            Strona nie wykryła pliku konfiguracyjnego. Aby włączyć bezpieczne dodawanie postów hasłem,
+                            musisz jednorazowo podać swój <strong>GitHub Token (PAT)</strong> oraz ustalić <strong>Nowe
+                                Hasło</strong> dla redaktorów. Token zostanie zaszyfrowany (AES) podanym hasłem i
+                            bezpiecznie zapisany w repozytorium.</p>
+                        <form id="setup-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                            <input type="password" id="setup-pat"
+                                placeholder="Wklej tutaj swój długi GitHub Token (PAT)" required
+                                style="width: 100%; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid red; background: rgba(255, 0, 0, 0.05); color: var(--text-primary); font-family: monospace;">
+                            <input type="password" id="setup-password"
+                                placeholder="Wymyśl proste Hasło (np. KluczDruzyny!)" required
+                                style="width: 100%; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
+                            <button type="submit" id="setup-btn"
+                                style="align-self: flex-start; padding: 0.9rem 1.8rem; border-radius: 8px; background: red; color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
+                                Zaszyfruj i Skonfiguruj Kronikę
+                            </button>
+                            <span id="setup-status" style="font-size: 0.9rem; font-weight: 500;"></span>
+                        </form>
                     </div>
-                    <textarea id="post-content" rows="4" placeholder="Treść wpisu..." required
-                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit; resize: vertical;"></textarea>
 
-                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                        <button type="submit" id="submit-btn"
-                            style="padding: 0.8rem 1.5rem; border-radius: 8px; background: var(--color-gold-base); color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
-                            Opublikuj Wpis
-                        </button>
-                        <span id="status-msg" style="font-size: 0.9rem; font-weight: 500;"></span>
+                    <!-- Admin Panel for adding posts (Zwykły tryb) -->
+                    <div id="add-panel" class="card admin-panel"
+                        style="text-align: left; padding: 2.5rem; border-top: 4px solid var(--color-gold-base); display: none;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Opublikuj nowy wpis</h2>
+                        <form id="kronika-form" style="display: flex; flex-direction: column; gap: 1.2rem;">
+
+                            <input type="password" id="post-password" placeholder="Wpisz Hasło autoryzacyjne" required
+                                style="width: 100%; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-surface-hover); color: var(--text-primary); font-family: inherit;">
+
+                            <div style="display: flex; gap: 1.2rem; width: 100%;">
+                                <input type="text" id="post-title" placeholder="Tytuł wpisu" required
+                                    style="flex-grow: 1; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
+                                <input type="text" id="post-date" placeholder="Data (np. 12 Wrześna 2026)" required
+                                    style="flex-grow: 1; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
+                            </div>
+                            <textarea id="post-content" rows="6" placeholder="Co wydarzyło się tym razem?..." required
+                                style="width: 100%; padding: 0.9rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit; resize: vertical;"></textarea>
+
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <button type="submit" id="submit-btn"
+                                    style="padding: 1rem 2rem; border-radius: 8px; background: var(--color-gold-base); color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
+                                    Wyślij na stronę
+                                </button>
+                                <span id="status-msg" style="font-size: 0.95rem; font-weight: 500;"></span>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
 
             <!-- Kontener na wpisy -->
@@ -125,6 +142,16 @@
 
             const setupPanel = document.getElementById("setup-panel");
             const addPanel = document.getElementById("add-panel");
+            const modal = document.getElementById("admin-modal");
+            const fab = document.getElementById("fab-add");
+            const closeModal = document.getElementById("close-modal");
+
+            // --- TOGGLE MODAL ---
+            fab.addEventListener("click", () => modal.classList.add("active"));
+            closeModal.addEventListener("click", () => modal.classList.remove("active"));
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) modal.classList.remove("active");
+            });
 
             // --- KONFIGURACJA GITHUB ---
             const OWNER = "machal3";
