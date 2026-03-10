@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Składki - Szablon Drużyny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .data-block {
+            background-color: var(--bg-surface-hover);
+            border: 1px dashed var(--border-strong);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            font-family: inherit;
+        }
+
+        .data-label {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            display: block;
+        }
+
+        .data-value {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-value:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1>Składki Członkowskie</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Informacje o
+                wpłatach z tytułu Podstawowej Składki Członkowskiej.</p>
+        </div>
+
+        <section class="content" style="max-width: 800px;">
+            <div class="card" style="text-align: left; padding: 3rem;">
+                <h2 style="font-size: 1.8rem;">Wysokość składki</h2>
+                <p style="color: var(--text-secondary); font-size: 1.05rem;">Zgodnie z uchwałą komendy, składka wynosi
+                    obecnie <strong style="color: var(--text-primary);">60 zł / kwartał</strong>.</p>
+
+                <div class="data-block">
+                    <span class="data-label">Nazwa Odbiorcy</span>
+                    <span class="data-value">ZHP Hufiec Przykładowy (właściciel konta drużyny)</span>
+
+                    <span class="data-label">Numer konta bankowego</span>
+                    <span class="data-value"
+                        style="font-family: monospace; letter-spacing: 2px; color: var(--color-gold-base);">00 0000 0000
+                        0000 0000 0000 0000</span>
+
+                    <span class="data-label">Tytuł przelewu (Wzór)</span>
+                    <span class="data-value">PSC, Imię i Nazwisko dziecka, Nazwa Drużyny, I kwartał</span>
+                </div>
+
+                <div
+                    style="background-color: rgba(176, 141, 68, 0.05); border-left: 4px solid var(--color-gold-base); padding: 1rem 1.5rem; border-radius: 4px;">
+                    <strong style="color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Ważne
+                        ostrzeżenie:</strong>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin: 0;">Prosimy o rzetelne
+                        wpisywanie tytułu przelewu. Znacznie przyspiesza to księgowanie po stronie hufca.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

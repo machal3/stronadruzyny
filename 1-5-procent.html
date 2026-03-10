@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1,5% Podatku - Szablon Drużyny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tax-card {
+            background-color: var(--color-gold-base);
+            color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            text-align: center;
+            margin: -6rem auto 4rem;
+            /* Overlap z headerem dla dynamiki */
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(176, 141, 68, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .tax-card::before {
+            content: '%';
+            position: absolute;
+            font-size: 300px;
+            font-weight: 800;
+            right: -50px;
+            top: -100px;
+            opacity: 0.1;
+            line-height: 1;
+            pointer-events: none;
+            color: #ffffff;
+        }
+
+        .number-large {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-family: monospace;
+            display: block;
+            margin: 1rem 0;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header" style="padding-bottom: 10rem;">
+            <h1>1,5% dla drużyny</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Zainwestuj w
+                wychowanie. Przekaż swój ułamek podatku na naszą działalność.</p>
+        </div>
+
+        <section class="content" style="max-width: 1000px; padding-top: 0;">
+
+            <div class="tax-card">
+                <span
+                    style="text-transform: uppercase; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; opacity: 0.9;">Numer
+                    KRS</span>
+                <span class="number-large">0000057720</span>
+
+                <div
+                    style="background: rgba(0,0,0,0.15); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; backdrop-filter: blur(5px);">
+                    <span
+                        style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 0.5rem; display: block;">Cel
+                        szczegółowy</span>
+                    <strong style="font-size: 1.25rem;">MAZ-5-ZLOTA</strong>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: left; padding: 3rem;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Dlaczego warto?</h2>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary);">W trakcie rozliczenia
+                    podatkowego mają Państwo przekazać 1,5% podatku na organizację pożytku publicznego. My również
+                    bierzemy w tym udział. Dlatego jeżeli mają Państwo taką możliwość i chęć, to prosimy o dodanie
+                    naszej drużyny i
+                    promowania akcji na zewnątrz. Każda pomoc jest na wagę złota.</p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-top: 1rem;">
+                    Dziękujemy za wszelkie wsparcie!</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

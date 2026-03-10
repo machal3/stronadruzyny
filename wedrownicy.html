@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wędrownicy - Szablon Drużyny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .focus-area {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background-color: var(--bg-surface-hover);
+            border: 1px solid transparent;
+            transition: border-color var(--transition-fast);
+        }
+
+        .focus-area:hover {
+            border-color: var(--border-strong);
+        }
+
+        .focus-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgba(176, 141, 68, 0.1);
+            color: var(--color-gold-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1>Wędrownicy</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Wyjdź w świat,
+                zobacz, pomyśl, pomóż. Najstarsza metodyka harcerska dla poszukujących wyzwań.</p>
+        </div>
+
+        <section class="content" style="max-width: 900px;">
+            <div class="card" style="text-align: left; padding: 3rem;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">Nasze filary działalności</h2>
+
+                <div class="focus-area">
+                    <div class="focus-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                            </path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 0.25rem;">Znak Służby</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">Służba to fundament
+                            odróżniający wędrownika. Podejmujemy działania prospołeczne w swoim regionie i wspomożenie
+                            instytucji na stałe.</p>
+                    </div>
+                </div>
+
+                <div class="focus-area">
+                    <div class="focus-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 0.25rem;">Wyczyn</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">Kształtowanie siły woli
+                            oraz przełamywanie własnych słabości fizycznych jak i psychicznych poprzez podejmowanie
+                            nietypowych przedsięwzięć górskich, podróżniczych czy wspinaczkowych.</p>
+                    </div>
+                </div>
+
+                <div class="focus-area" style="margin-bottom: 0;">
+                    <div class="focus-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 0.25rem;">Samodoskonalenie</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0;">Wędrownictwo stawia na
+                            ciągły rozwój poprzez zdobywanie znaków i naramiennika. Jesteśmy współodpowiedzialni za
+                            proces wychowawczy samych siebie.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

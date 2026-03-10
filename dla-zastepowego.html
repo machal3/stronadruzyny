@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla zastępowego - Szablon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tool-list {
+            margin-top: 2rem;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-surface-hover);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: 1.5rem;
+            transition: transform var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .tool-item:hover {
+            transform: translateX(8px);
+            border-color: var(--color-gold-base);
+        }
+
+        .tool-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--border-strong);
+            font-family: monospace;
+        }
+
+        .tool-content h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-content p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--color-gold-base);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .tool-link:hover {
+            color: var(--color-gold-light);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1>Dla zastępowego</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Niezbędne ramy
+                działania. Konspekty, pomysły na zbiórki i zasady bezpieczeństwa.</p>
+        </div>
+
+        <section class="content" style="max-width: 900px;">
+            <div class="card" style="text-align: left; padding: 3rem;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Materiały szkoleniowe</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Baza wiedzy dla funkcyjnych ułatwiająca
+                    prowadzenie śródrocznej pracy wychowawczej.</p>
+
+                <div class="tool-list">
+                    <div class="tool-item">
+                        <div class="tool-number">01</div>
+                        <div class="tool-content">
+                            <h3>Jak napisać dobry konspekt?</h3>
+                            <p>Struktura zbiórki: Gawęda, część główna, podsumowanie i okrzyk. Zobacz jak prawidłowo
+                                zaplanować czas i dynamikę spotkania.</p>
+                            <a href="#" class="tool-link">
+                                Przeczytaj wzornik
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <div class="tool-number">02</div>
+                        <div class="tool-content">
+                            <h3>Baza gier i pląsów</h3>
+                            <p>Brak pomysłu na rozgrzewkę? 30 sprawdzonych gier, z podziałem na gry terenowe,
+                                świetlicowe i zabawy integracyjne.</p>
+                            <a href="#" class="tool-link">
+                                Przejdź do bazy
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <div class="tool-number">03</div>
+                        <div class="tool-content">
+                            <h3>Książka Pracy Zastępu</h3>
+                            <p>Poradnik jak prowadzić dokumentację zastępu. Do pobrania gotowy szablon ułatwiający
+                                punktację w systemie turniejowym na obozie.</p>
+                            <a href="#" class="tool-link">
+                                Pobierz PDF
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

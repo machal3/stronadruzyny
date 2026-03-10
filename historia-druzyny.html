@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia drużyny - Szablon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline-item {
+            border-left: 2px solid var(--border-strong);
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--color-gold-base);
+            box-shadow: 0 0 0 4px var(--bg-surface);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1>Historia drużyny</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Poznaj nasze
+                korzenie, tradycje i ludzi, którzy tworzyli to środowisko na przestrzeni lat.</p>
+        </div>
+
+        <section class="content" style="max-width: 800px;">
+            <div class="card" style="text-align: left; padding: 3.5rem;">
+                <div class="timeline-item">
+                    <span style="color: var(--color-gold-base); font-weight: 600; font-size: 1.2rem;">1998</span>
+                    <h3 style="font-size: 1.8rem; margin: 0.5rem 0 1rem; color: var(--text-primary);">Początki naszej
+                        działalności</h3>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">W tym miejscu możesz opisać jak powstała drużyna i
+                        jej najważniejsze sukcesy na przestrzeni lat. Układ osi czasu (timeline) jest naturalny dla
+                        takich sekcji i wygląda bardzo profesjonalnie.</p>
+                </div>
+
+                <div class="timeline-item" style="border-left-color: transparent;">
+                    <span style="color: var(--color-gold-base); font-weight: 600; font-size: 1.2rem;">2012</span>
+                    <h3 style="font-size: 1.8rem; margin: 0.5rem 0 1rem; color: var(--text-primary);">Zdobycie imienia i
+                        sztandaru</h3>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">Kolejny ważny krok w historii. Używając takich
+                        bloków unikasz ściany tekstu, a strona "oddycha".</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

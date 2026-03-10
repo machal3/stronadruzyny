@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kronika - Szablon Drużyny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--hero-glow) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-header">
+            <h1>Kronika</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Najważniejsze
+                wydarzenia z życia naszej drużyny. Zobacz co robiliśmy w ostatnim czasie.</p>
+        </div>
+
+        <section class="content" style="max-width: 900px;">
+            <div class="card" style="text-align: left; padding: 3rem;">
+                <span
+                    style="color: var(--color-gold-base); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">24
+                    Sierpnia 2026</span>
+                <h2 style="margin-top: 0.5rem; font-size: 2.2rem;">Ostatni biwak</h2>
+                <div
+                    style="height: 4px; width: 40px; background-color: var(--color-gold-base); margin: 1.5rem 0; border-radius: 2px;">
+                </div>
+                <p style="font-size: 1.1rem; line-height: 1.8;">Tutaj znajdzie się pełna relacja z najnowszego wyjazdu,
+                    zdjęcia i wspomnienia harcerzy. Ten blok tekstu ma teraz znacznie lepszą typografię i światło,
+                    dzięki temu wygląda jak fragment profesjonalnego artykułu, a nie wygenerowany placeholder.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
