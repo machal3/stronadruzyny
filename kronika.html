@@ -189,11 +189,14 @@
             fab.addEventListener("click", () => {
                 modal.classList.add("active");
                 // Reset errors on open
-                if (!isLoggedIn && !setupPanel.style.display || setupPanel.style.display === "none") {
-                    loginStatusMsg.textContent = "";
-                    document.getElementById("login-password").value = "";
-                    loginPanel.style.display = "block";
-                    addPanel.style.display = "none";
+                if (!isLoggedIn) {
+                    if (setupPanel.style.display !== "block") {
+                        loginStatusMsg.textContent = "";
+                        document.getElementById("login-password").value = "";
+                        loginPanel.style.display = "block";
+                        addPanel.style.display = "none";
+                        setupPanel.style.display = "none";
+                    }
                 }
             });
             closeModal.addEventListener("click", () => modal.classList.remove("active"));
@@ -260,6 +263,7 @@
                         loginPanel.style.display = "none";
                         addPanel.style.display = "none";
                         loader.style.display = "none";
+                        modal.classList.add("active"); // Automatycznie otwórz modal z setupem
                         return; // Oczekujemy na instalację
                     } else {
                         throw new Error(`Błąd odczytu configu: ${configRes.status}`);
