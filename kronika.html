@@ -42,14 +42,40 @@
         </div>
 
         <section class="content" style="max-width: 900px;">
-            <!-- Admin Panel for adding posts -->
-            <div class="card admin-panel"
-                style="text-align: left; padding: 2rem; margin-bottom: 2rem; border-top: 4px solid var(--color-gold-base);">
-                <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Panel Administracyjny (Wymaga Tokenu)</h2>
+
+            <!-- Setup Panel (Widoczny tylko gdy brak configu) -->
+            <div id="setup-panel" class="card admin-panel"
+                style="text-align: left; padding: 2rem; margin-bottom: 2rem; border-top: 4px solid red; display: none;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: red;">⚠️ Wymagana Inicjalizacja Kroniki
+                    (Tylko raz!)</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Strona nie wykryła pliku konfiguracyjnego. Aby włączyć bezpieczne dodawanie postów hasłem, musisz
+                    jednorazowo podać swój <strong>GitHub Token (PAT)</strong> oraz ustalić <strong>Nowe Hasło</strong>
+                    dla redaktorów. Token zostanie zaszyfrowany (AES) podanym hasłem i bezpiecznie zapisany w
+                    repozytorium.</p>
+                <form id="setup-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <input type="password" id="setup-pat" placeholder="Wklej tutaj swój długi GitHub Token (PAT)"
+                        required
+                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid red; background: rgba(255, 0, 0, 0.05); color: var(--text-primary); font-family: monospace;">
+                    <input type="password" id="setup-password" placeholder="Wymyśl proste Hasło (np. KluczDruzyny!)"
+                        required
+                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-base); color: var(--text-primary); font-family: inherit;">
+                    <button type="submit" id="setup-btn"
+                        style="align-self: flex-start; padding: 0.8rem 1.5rem; border-radius: 8px; background: red; color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
+                        Zaszyfruj i Skonfiguruj Kronikę
+                    </button>
+                    <span id="setup-status" style="font-size: 0.9rem; font-weight: 500;"></span>
+                </form>
+            </div>
+
+            <!-- Admin Panel for adding posts (Zwykły tryb) -->
+            <div id="add-panel" class="card admin-panel"
+                style="text-align: left; padding: 2rem; margin-bottom: 2rem; border-top: 4px solid var(--color-gold-base); display: none;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Dodaj nowy wpis do Kroniki</h2>
                 <form id="kronika-form" style="display: flex; flex-direction: column; gap: 1rem;">
 
-                    <input type="password" id="github-token" placeholder="GitHub Personal Access Token (PAT)"
-                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: rgba(255, 0, 0, 0.05); color: var(--text-primary); font-family: inherit; font-family: monospace;">
+                    <input type="password" id="post-password" placeholder="Hasło autoryzacyjne" required
+                        style="width: 100%; padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-surface-hover); color: var(--text-primary); font-family: inherit;">
 
                     <div style="display: flex; gap: 1rem; width: 100%;">
                         <input type="text" id="post-title" placeholder="Tytuł wpisu" required
@@ -63,7 +89,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <button type="submit" id="submit-btn"
                             style="padding: 0.8rem 1.5rem; border-radius: 8px; background: var(--color-gold-base); color: #fff; border: none; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">
-                            Dodaj do Kroniki
+                            Opublikuj Wpis
                         </button>
                         <span id="status-msg" style="font-size: 0.9rem; font-weight: 500;"></span>
                     </div>
@@ -85,36 +111,49 @@
 
     <div id="footer-placeholder"></div>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("kronika-form");
+            const setupForm = document.getElementById("setup-form");
             const container = document.getElementById("posts-container");
             const loader = document.getElementById("loader");
             const statusMsg = document.getElementById("status-msg");
+            const setupStatusMsg = document.getElementById("setup-status");
             const submitBtn = document.getElementById("submit-btn");
+            const setupBtn = document.getElementById("setup-btn");
+
+            const setupPanel = document.getElementById("setup-panel");
+            const addPanel = document.getElementById("add-panel");
 
             // --- KONFIGURACJA GITHUB ---
             const OWNER = "machal3";
             const REPO = "stronadruzyny";
-            const FILE_PATH = "kronika_posts.json";
-            let fileSha = ""; // Wymagany do aktualizacji (Update) pliku przez API
+            const POSTS_FILE = "kronika_posts.json";
+            const CONFIG_FILE = "kronika_config.json";
 
-            // Trzymamy pobrane posty w pamięci
+            let fileSha = ""; // Do kronika_posts.json
+            let configSha = ""; // Do kronika_config.json
             let loadedPosts = [];
+            let encryptedPatGlobal = null; // Przechowuje zaszyfrowany token z GitHuba
 
             function setStatus(msg, color = "var(--text-secondary)") {
                 statusMsg.textContent = msg;
                 statusMsg.style.color = color;
             }
 
-            // Dekodowanie Base64 (UTF-8 bezpieczne)
+            function setSetupStatus(msg, color = "var(--text-secondary)") {
+                setupStatusMsg.textContent = msg;
+                setupStatusMsg.style.color = color;
+            }
+
+            // Dekody (Base64 <-> UTF8) do API
             function b64DecodeUnicode(str) {
                 return decodeURIComponent(atob(str).split('').map(function (c) {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
             }
 
-            // Kodowanie Base64 (UTF-8 bezpieczne)
             function b64EncodeUnicode(str) {
                 return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
                     function toSolidBytes(match, p1) {
@@ -122,75 +161,159 @@
                     }));
             }
 
-            // 1. POBIERANIE DANYCH Z GITHUBA
-            async function fetchPosts() {
-                container.querySelectorAll('.card').forEach(e => e.remove());
+            // 1. INICJALIZACJA: Sprawdź config i posty
+            async function initializeApp() {
                 loader.style.display = "block";
-                setStatus("");
 
                 try {
-                    // Cache buster by nie czytać przestarzałych danych
-                    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}?t=${Date.now()}`;
-                    const response = await fetch(url);
+                    // Pobierz config z zaszyfrowanym tokenem
+                    const configUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CONFIG_FILE}?t=${Date.now()}`;
+                    const configRes = await fetch(configUrl);
 
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            loadedPosts = [];
-                            renderPosts();
-                            return;
-                        }
-                        throw new Error("Błąd pobierania bazy danych.");
+                    if (configRes.ok) {
+                        const configData = await configRes.json();
+                        configSha = configData.sha;
+                        const configJson = JSON.parse(b64DecodeUnicode(configData.content));
+                        encryptedPatGlobal = configJson.encrypted_pat;
+
+                        setupPanel.style.display = "none";
+                        addPanel.style.display = "block";
+                    } else if (configRes.status === 404) {
+                        // Jeśli nie ma configu (pierwsze uruchomienie)
+                        setupPanel.style.display = "block";
+                        addPanel.style.display = "none";
+                        loader.style.display = "none";
+                        return; // Oczekujemy na instalację
+                    } else {
+                        throw new Error(`Błąd odczytu configu: ${configRes.status}`);
                     }
 
-                    const data = await response.json();
-                    fileSha = data.sha; // Zachowujemy SHA do potencjalnych edycji
+                    // Skoro mamy config to pobierzmy posty
+                    const postsUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${POSTS_FILE}?t=${Date.now()}`;
+                    const postsRes = await fetch(postsUrl);
 
-                    const contentJson = b64DecodeUnicode(data.content);
-                    loadedPosts = JSON.parse(contentJson);
+                    if (postsRes.ok) {
+                        const data = await postsRes.json();
+                        fileSha = data.sha;
+                        loadedPosts = JSON.parse(b64DecodeUnicode(data.content));
+                    } else if (postsRes.status === 404) {
+                        loadedPosts = [];
+                    } else {
+                        throw new Error(`Błąd pobierania bazy postów.`);
+                    }
 
                     renderPosts();
+
                 } catch (error) {
-                    console.error(error);
-                    setStatus("Błąd pobierania: " + error.message, "red");
+                    console.error("Inicjalizacja bląd:", error);
+                    setStatus("Błąd wczytywania aplikacji. Sprawdź konsolę.", "red");
                 } finally {
                     loader.style.display = "none";
                 }
             }
 
-            // 2. EDYCJA I WYSYŁANIE NA GITHUBA
-            async function updateGitHubFile(newPostsArray, commitMessage) {
-                const token = document.getElementById("github-token").value.trim();
+            // 2. ODSZYFROWYWANIE (Z użyciem zwykłego hasła)
+            function getDecryptedToken(password) {
+                if (!encryptedPatGlobal) return null;
+                try {
+                    const bytes = CryptoJS.AES.decrypt(encryptedPatGlobal, password);
+                    const originalToken = bytes.toString(CryptoJS.enc.Utf8);
+                    return originalToken || null; // Zwróci pusty string na złym haśle
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            // 3. TRYB SETUP: Zapisz zaszyfrowany config
+            setupForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const rawPat = document.getElementById("setup-pat").value.trim();
+                const newPassword = document.getElementById("setup-password").value.trim();
+
+                if (!rawPat || !newPassword) return;
+
+                setupBtn.disabled = true;
+                setSetupStatus("Szyfruję i tworzę plik konfiguracyjny (1/2)...", "var(--color-gold-base)");
+
+                try {
+                    const ciphertext = CryptoJS.AES.encrypt(rawPat, newPassword).toString();
+
+                    const newConfig = {
+                        encrypted_pat: ciphertext,
+                        encrypted_at: new Date().toISOString()
+                    };
+                    const b64Content = b64EncodeUnicode(JSON.stringify(newConfig, null, 2));
+
+                    // Wypchnięcie bezpośrednio rawPatem użytkownika do repo
+                    const updateRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${CONFIG_FILE}`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `token ${rawPat}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            message: "Initialize Kronika AES Configuration",
+                            content: b64Content,
+                            // Używamy SHA tylko jeśli plik ewidentnie istniał ale go nie złapaliśmy
+                            ...(configSha && { sha: configSha })
+                        })
+                    });
+
+                    if (!updateRes.ok) throw new Error("Błąd tworzenia autoryzacji. Zły token?");
+
+                    setSetupStatus("Sukces! Kronika skonfigurowana. Odświeżam system...", "green");
+
+                    // Przeładuj do zwykłego panelu!
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+
+                } catch (err) {
+                    console.error(err);
+                    setSetupStatus("Błąd konfiguracji (Niepoprawny PAT?). Sprawdź konsolę.", "red");
+                    setupBtn.disabled = false;
+                }
+            });
+
+            // 4. EDYCJA I WYSYŁANIE POSTÓW NA GITHUBA
+            async function updateGitHubFile(newPostsArray, commitMessage, passwordAttempt) {
+
+                // Deszyfracja
+                const token = getDecryptedToken(passwordAttempt);
+
                 if (!token) {
-                    setStatus("Błąd: Wprowadź token PAT, aby zapisać zmiany!", "red");
+                    setStatus("Błędne hasło! Odszyfrowanie dostępu nie powiodło się.", "red");
+                    alert("Błędne hasło! Nie możesz edytować kroniki.");
                     return false;
                 }
 
                 submitBtn.disabled = true;
-                setStatus("Wysyłanie na GitHuba...", "var(--color-gold-base)");
+                setStatus("Trwa kodowanie i wgrywanie na GitHuba...", "var(--color-gold-base)");
 
                 const newContent = b64EncodeUnicode(JSON.stringify(newPostsArray, null, 4));
 
                 try {
-                    const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`, {
+                    const reqBody = {
+                        message: commitMessage,
+                        content: newContent
+                    };
+                    if (fileSha) reqBody.sha = fileSha; // Dodajemy sha w razie modyfikacji
+
+                    const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${POSTS_FILE}`, {
                         method: "PUT",
                         headers: {
                             "Authorization": `token ${token}`,
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({
-                            message: commitMessage,
-                            content: newContent,
-                            sha: fileSha
-                        })
+                        body: JSON.stringify(reqBody)
                     });
 
                     if (!response.ok) {
                         throw new Error(`Błąd API: ${response.status}`);
                     }
 
-                    setStatus("Sukces! Zmiany zapisane. Przeładuj stronę za ~30 sekund.", "green");
+                    setStatus("Sukces! Zmiany zapisane. Strona zbuduje się na nowo za ok. ~30 sekund.", "green");
 
-                    // Odśwież widok lokalny na podstawie sukcesu (i zaktualizuj SHA)
                     const data = await response.json();
                     fileSha = data.content.sha;
                     loadedPosts = newPostsArray;
@@ -199,19 +322,18 @@
 
                 } catch (error) {
                     console.error(error);
-                    setStatus("Błąd zapisu! Niepoprawny token lub brak uprawnień.", "red");
+                    setStatus("Błąd zapisu! Brak połączenia lub wygasły token wewnątrz configu.", "red");
                     return false;
                 } finally {
                     submitBtn.disabled = false;
                 }
             }
 
-            // 3. RENDEROWANIE WPISÓW W DOM
+            // 5. RENDEROWANIE WPISÓW W DOM
             function renderPosts() {
                 container.querySelectorAll('.card').forEach(e => e.remove());
 
                 const postsToRender = [...loadedPosts];
-                // Sortowanie pod ID zakłada że id to timestamp
                 postsToRender.sort((a, b) => b.id - a.id);
 
                 postsToRender.forEach(post => {
@@ -220,7 +342,7 @@
                     postCard.style.cssText = "text-align: left; padding: 3rem; margin-bottom: 2rem; position: relative;";
 
                     postCard.innerHTML = `
-                        <button class="delete-btn" data-id="${post.id}" aria-label="Usuń wpis" title="Wymaga autoryzacji tokenem"
+                        <button class="delete-btn" data-id="${post.id}" aria-label="Usuń wpis" title="Wymaga autoryzacji ukrytym tokenem"
                             style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,0,0,0.1); color: red; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2-2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
@@ -236,19 +358,17 @@
                     container.appendChild(postCard);
                 });
 
-                // Event listenery usuwania
                 document.querySelectorAll(".delete-btn").forEach(btn => {
                     btn.addEventListener("click", async function () {
-                        const token = document.getElementById("github-token").value.trim();
-                        if (!token) {
-                            alert("BŁĄD: Musisz najpierw wpisać Token (Hasło) w panelu wyżej, aby usuwać wpisy!");
-                            return;
+                        const passwordAtt = prompt("Wpisz HASŁO do kroniki, aby potwierdzić uprawnienie do usunięcia wpisu:");
+                        if (!passwordAtt) {
+                            return; // anulowano
                         }
 
-                        if (confirm("Czy na pewno chcesz usunąć ten wpis? Spowoduje to auto-commit do GitHuba.")) {
+                        if (confirm("Czy na pewno chcesz usunąć ten wpis z kroniki? Zmiany są nieodwracalne i pójdą na GitHub.")) {
                             const idToDelete = this.getAttribute("data-id");
                             const updatedPosts = loadedPosts.filter(post => post.id !== idToDelete);
-                            await updateGitHubFile(updatedPosts, `Usuń wpis Kroniki (ID: ${idToDelete})`);
+                            await updateGitHubFile(updatedPosts, `Usuń wpis Kroniki (ID: ${idToDelete})`, passwordAtt);
                         }
                     });
                 });
@@ -261,6 +381,7 @@
                 const title = document.getElementById("post-title").value.trim();
                 const date = document.getElementById("post-date").value.trim();
                 const content = document.getElementById("post-content").value.trim();
+                const passwordAtt = document.getElementById("post-password").value.trim();
 
                 const newPost = {
                     id: Date.now().toString(),
@@ -271,17 +392,19 @@
 
                 const updatedPosts = [...loadedPosts, newPost];
 
-                const success = await updateGitHubFile(updatedPosts, `Dodaj wpis Kroniki: ${title}`);
+                const success = await updateGitHubFile(updatedPosts, `Dodaj wpis Kroniki: ${title}`, passwordAtt);
                 if (success) {
-                    // Reset głównych pól (zachowaj token)
                     document.getElementById("post-title").value = "";
                     document.getElementById("post-date").value = "";
                     document.getElementById("post-content").value = "";
+                    // Pamiętaj: nie kasujemy 'post-password' tak szybko, żeby odciążyć użytkownika
+                    // Ale jeśli chcemy być ekstra pro:
+                    // document.getElementById("post-password").value = "";
                 }
             });
 
-            // Start: Pobierz przy starcie
-            fetchPosts();
+            // Odpal logikę główną
+            initializeApp();
         });
     </script>
 </body>
