@@ -60,6 +60,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 mobileMenuToggle.classList.toggle('active');
             });
         }
+
+        // Logika akordeonu (dropdown) dla widoku mobilnego
+        const dropdownLinks = document.querySelectorAll('.nav-links > li.dropdown > a');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Działamy tylko na ekranach mobilnych (max-width: 900px, jak w CSS)
+                if (window.innerWidth <= 900) {
+                    e.preventDefault(); // Zatrzymujemy domyślne zachowanie linku
+                    const parentLi = this.parentElement;
+                    
+                    // (Opcjonalnie) zwijanie pozostałych otwartych menu
+                    dropdownLinks.forEach(otherLink => {
+                        if (otherLink !== this) {
+                            otherLink.parentElement.classList.remove('active-dropdown');
+                        }
+                    });
+                    
+                    // Przełączamy klasę tylko dla klikniętego elementu
+                    parentLi.classList.toggle('active-dropdown');
+                }
+            });
+        });
     });
 
     // Ładujemy stopkę

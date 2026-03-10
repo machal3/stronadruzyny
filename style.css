@@ -209,9 +209,7 @@ body {
     top: calc(100% - 10px);
     left: 50%;
     transform: translateX(-50%) translateY(10px) scale(0.95);
-    background-color: var(--nav-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background-color: var(--bg-surface);
     min-width: 220px;
     list-style: none;
     border-radius: var(--radius-md);
@@ -439,6 +437,24 @@ footer {
     font-weight: 500;
 }
 
+/* ---------------- Formularze & Admin (Kronika) ---------------- */
+.admin-panel input:focus,
+.admin-panel textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-base) !important;
+    box-shadow: 0 0 0 3px rgba(176, 141, 68, 0.15);
+}
+
+.admin-panel button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 0, 0, 0.15) !important;
+    transform: scale(1.05);
+}
+
 /* ---------------- Mobile Menu Buttons ---------------- */
 .menu-toggle {
     display: none;
@@ -495,9 +511,7 @@ footer {
         width: 80%;
         max-width: 400px;
         height: 100vh;
-        background-color: var(--nav-bg);
-        backdrop-filter: var(--nav-blur);
-        -webkit-backdrop-filter: var(--nav-blur);
+        background-color: var(--bg-surface);
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
@@ -528,22 +542,30 @@ footer {
     .dropdown-menu {
         position: static;
         transform: none;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
         box-shadow: none;
         border: none;
         background: transparent;
-        padding: 0.5rem 0 0 1rem;
+        padding: 0;
         min-width: 100%;
-        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
     }
 
-    /* Wyświetlanie dropdownu na mobile - domyślnie ukryte, 
-       można rozbudować o JS click, ale w najprostszej wersji 
-       odkryjemy na sztywno przy hover lub gdy jesteśmy na mobile rozwijamy zawsze */
-    .nav-links>li:hover .dropdown-menu,
-    .nav-links>li:active .dropdown-menu {
-        display: block;
+    /* Accordion active state toggled by JS on the parent <li> */
+    .nav-links>li.active-dropdown .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 400px;
+        /* enough to show all items */
+        padding: 0.5rem 0 0.5rem 1.5rem;
+    }
+
+    /* Otwieranie na rozwijanie strzałki na mobile */
+    .nav-links>li.active-dropdown>a .dropdown-icon {
+        transform: rotate(180deg);
     }
 
     /* Hero adjustments */
