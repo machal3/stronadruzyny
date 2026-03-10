@@ -265,6 +265,8 @@
                         loader.style.display = "none";
                         modal.classList.add("active"); // Automatycznie otwórz modal z setupem
                         return; // Oczekujemy na instalację
+                    } else if (configRes.status === 403) {
+                        throw new Error(`Przekroczono darmowy limit zapytań do GitHub API (60/h). Spróbuj ponownie za jakiś czas lub zmień sieć Wi-Fi.`);
                     } else {
                         throw new Error(`Błąd odczytu configu: ${configRes.status}`);
                     }
@@ -287,7 +289,7 @@
 
                 } catch (error) {
                     console.error("Inicjalizacja bląd:", error);
-                    setStatus("Błąd wczytywania aplikacji. Sprawdź konsolę.", "red");
+                    setStatus(error.message || "Błąd wczytywania aplikacji. Sprawdź konsolę.", "red");
                 } finally {
                     loader.style.display = "none";
                 }
