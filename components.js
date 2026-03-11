@@ -3,7 +3,7 @@ const components = {
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Logo" style="height: 40px; width: auto; object-fit: contain;">
+            <img src="lofoo.png" alt="Logo" style="height: 40px; width: auto; object-fit: contain;">
             5 WDH ,,Złota Piątka"
         </a>
         <div style="display: flex; align-items: center;">
@@ -90,3 +90,4 @@ const components = {
             style="color: var(--color-gold-base); text-decoration: none;">michal.nowacki@zhr.pl</a></p>
 </footer>`
 };
+

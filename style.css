@@ -1,82 +1,84 @@
 :root {
     /* --- LIGHT THEME (Default) --- */
     --bg-base: #fdfdfd;
+    --bg-base-rgb: 253, 253, 253; /* Added for opacity */
     --bg-surface: #ffffff;
     --bg-surface-hover: #f3f4f6;
 
-    /* Złoto - Bardziej stonowane, eleganckie */
-    --color-gold-base: #b08d44;
-    --color-gold-light: #d6b365;
-    --color-gold-dark: #8c6e31;
+    /* Złoto - Bardziej stonowane, eleganckie (Mosiądz) */
+    --color-gold-base: #a67c00;
+    --color-gold-light: #cfa838;
+    --color-gold-dark: #7a5c00;
 
     /* Typografia - Jasny motyw */
-    --text-primary: #1a1a1a;
-    --text-secondary: #52525b;
-    --text-tertiary: #a1a1aa;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-tertiary: #9ca3af;
 
     /* Elementy UI */
-    --border-subtle: rgba(0, 0, 0, 0.06);
-    --border-strong: rgba(0, 0, 0, 0.12);
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.15);
 
-    --nav-bg: rgba(255, 255, 255, 0.75);
-    --nav-blur: blur(16px);
+    --nav-bg: rgba(255, 255, 255, 1);
+    --nav-blur: none;
 
-    /* Głębia i cienie (Sleek, modern shadows) */
+    /* Głębia i cienie (Płaskie, profesjonalne) */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-    --shadow-xl: 0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
 
     /* Akcenty Hero */
-    --hero-glow: radial-gradient(circle at 50% 0%, rgba(176, 141, 68, 0.12) 0%, rgba(253, 253, 253, 0) 70%);
-    --gradient-text: linear-gradient(135deg, #18181b 0%, var(--color-gold-base) 100%);
+    --hero-glow: var(--bg-surface);
+    --gradient-text: var(--text-primary);
 
     /* Zaokrąglenia i przejścia */
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition-fast: 0.15s ease;
+    --transition-slow: 0.3s ease;
 }
 
 [data-theme="dark"] {
     /* --- DARK THEME --- */
     --bg-base: #09090b;
+    --bg-base-rgb: 9, 9, 11; /* Added for opacity */
     --bg-surface: #121214;
     --bg-surface-hover: #1f1f22;
 
     /* Złoto - Bardziej świetliste na ciemnym */
-    --color-gold-base: #d4af37;
-    --color-gold-light: #f2ca47;
-    --color-gold-dark: #ac8a23;
+    --color-gold-base: #ca9f1d;
+    --color-gold-light: #e6b833;
+    --color-gold-dark: #997812;
 
     /* Typografia - Ciemny motyw */
-    --text-primary: #fafafa;
-    --text-secondary: #a1a1aa;
-    --text-tertiary: #52525b;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #6b7280;
 
     /* Elementy UI */
-    --border-subtle: rgba(255, 255, 255, 0.05);
-    --border-strong: rgba(255, 255, 255, 0.1);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
 
-    --nav-bg: rgba(9, 9, 11, 0.75);
+    --nav-bg: rgba(9, 9, 11, 1);
 
-    /* Głębia i cienie (Mniej widoczne w ciemnym, bardziej opierają się na ramkach widmo) */
+    /* Głębia i cienie (Płaskie) */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 20px 40px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 
     /* Akcenty Hero */
-    --hero-glow: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15) 0%, rgba(9, 9, 11, 0) 70%);
-    --gradient-text: linear-gradient(135deg, #ffffff 0%, var(--color-gold-base) 100%);
+    --hero-glow: var(--bg-surface);
+    --gradient-text: var(--text-primary);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* Outfit jest nowoczesny, dodajemy font-smoothing do wyostrzenia na Mac/Windows */
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Inter to font wysoce czytelny, dodajemy font-smoothing do wyostrzenia na Mac/Windows */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -117,17 +119,15 @@ body {
     }
 }
 
-/* ---------------- Nawigacja (Glassmorphism & Złote Tło) ---------------- */
+/* ---------------- Nawigacja (Złote Tło Paska) ---------------- */
 .navbar {
     background-color: var(--color-gold-base);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 2px solid var(--border-subtle); /* Oddzielenie paska */
     transition: background-color var(--transition-slow), border-color var(--transition-slow);
-    animation: navSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: navSlideDown 0.8s ease forwards;
 }
 
 .nav-container {
@@ -141,17 +141,17 @@ body {
 }
 
 .logo {
-    color: #ffffff; /* Białe logo dla złotego tła */
+    color: #ffffff; /* Biały tekst dla czytelności na złocie */
     font-size: 1.25rem;
     font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
     text-decoration: none;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     transition: color var(--transition-fast);
     display: flex;
     align-items: center;
-    gap: 8px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Delikatny cień dla czytelności na złocie */
+    gap: 12px;
 }
 
 
@@ -172,12 +172,12 @@ body {
 }
 
 .nav-links a {
-    color: rgba(255, 255, 255, 0.85); /* Lekko złamany biały na złotym tle */
+    color: rgba(255, 255, 255, 0.9); /* Prawie biały dla linków by zachować kontrast ze złotem */
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     letter-spacing: 0.5px;
-    transition: all var(--transition-fast);
+    transition: color var(--transition-fast);
     position: relative;
     padding: 0.5rem 0;
     display: flex;
@@ -185,10 +185,26 @@ body {
     gap: 6px;
 }
 
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transition: width var(--transition-fast);
+    border-radius: 2px;
+}
+
 .nav-links>li>a:hover,
 .nav-links>li:hover>a {
-    color: #ffffff; /* Czysty biały na hover */
-    text-shadow: 0 0 12px rgba(255,255,255,0.4);
+    color: #ffffff; /* Biały hover */
+}
+
+.nav-links>li>a:hover::after,
+.nav-links>li:hover>a::after {
+    width: 100%;
 }
 
 
@@ -261,8 +277,8 @@ body {
 
 /* ---------------- Przycisk motywu ---------------- */
 .theme-toggle {
-    background: rgba(255, 255, 255, 0.15); /* Półprzezroczysty przycisk na złocie */
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Odpowiada złotej nawigacji */
     color: #ffffff;
     cursor: pointer;
     display: flex;
@@ -270,18 +286,15 @@ body {
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: var(--radius-md);
     transition: all var(--transition-fast);
     margin-left: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .theme-toggle:hover {
-    color: var(--color-gold-dark);
-    background: #ffffff;
+    color: var(--color-gold-base); /* Utrzymuje motyw po najechaniu na czystym białym przycisku */
     border-color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background-color: #ffffff;
 }
 
 .theme-toggle svg {
@@ -321,33 +334,20 @@ main {
     overflow: hidden;
 }
 
-/* Ozdobny blur w tle (Sleek effect) */
+/* Ozdobny blur w tle (Usunięty dla powagi, zachowany pusty blok dla pewności) */
 .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: 100vw;
-    background: radial-gradient(circle, var(--color-gold-base) 0%, transparent 50%);
-    opacity: 0.03;
-    filter: blur(100px);
-    z-index: -1;
-    pointer-events: none;
+    display: none;
 }
 
 .hero h1 {
+    font-family: 'Montserrat', sans-serif;
     font-size: clamp(3rem, 5vw, 4.5rem);
     margin-bottom: 1.5rem;
     font-weight: 800;
     letter-spacing: -1px;
     line-height: 1.1;
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    color: var(--text-primary);
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .hero p {
@@ -361,52 +361,32 @@ main {
     opacity: 0;
 }
 
-/* CONTENT CARDS - Styl "Glass/Modern" */
+/* CONTENT CARDS - Styl Klasyczny/Profesjonalny */
 .content {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 2rem 6rem;
     width: 100%;
-    animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+    animation: fadeIn 0.8s ease forwards 0.2s;
     opacity: 0;
 }
 
 .card {
-    background-color: var(--bg-surface);
-    padding: 3.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow);
+    background-color: transparent;
+    padding: 2rem 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    transition: all var(--transition-fast);
     text-align: center;
     position: relative;
-    overflow: hidden;
-}
-
-/* Delikatny gradientowy border przy najechaniu */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), var(--color-gold-base), rgba(255, 255, 255, 0.1));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity var(--transition-slow);
-    pointer-events: none;
+    overflow: visible;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: var(--shadow-xl);
-}
-
-.card:hover::before {
-    opacity: 0.5;
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
 }
 
 .card h2 {
@@ -447,8 +427,8 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(var(--bg-base-rgb), 0.5); /* Używa tła strony zamiast czystej czerni, lżejsze */
+    backdrop-filter: blur(4px); /* Lekki blur, aby odseparować tło ale nie zadusić widoku, np. "nie takie czarne" */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -629,18 +609,20 @@ footer {
         width: 100%;
         justify-content: space-between;
         color: var(--text-secondary); /* Przywrócenie pierwotnego koloru dla bocznego panelu */
-        text-shadow: none; /* Usunięcie białego cienia nadanego na desktopie na złocie */
+    }
+
+    .nav-links a::after {
+        display: none;
     }
 
     .nav-links>li>a:hover,
     .nav-links>li:hover>a {
-        color: var(--text-primary);
-        text-shadow: none;
+        color: var(--color-gold-base);
     }
 
-    /* Logo w mobilnym widoku (jeśli byłoby przesuwane wewnątrz nav-links, zostawiamy by logo poza .nav-links mialo nadpisane) */
+    /* Logo w mobilnym widoku pozostaje na białym, z racji tła złotego paska */
     .logo {
-        color: #ffffff; /* Zostaję białe bo logo jest wcież na górnym złotym pasku */
+        color: #ffffff;
     }
 
     /* Dopasowanie dropdown icon na mobile by znów była grafitowa/jasna */
