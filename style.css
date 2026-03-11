@@ -117,11 +117,11 @@ body {
     }
 }
 
-/* ---------------- Nawigacja (Glassmorphism) ---------------- */
+/* ---------------- Nawigacja (Glassmorphism & Złote Tło) ---------------- */
 .navbar {
-    background-color: var(--nav-bg);
-    backdrop-filter: var(--nav-blur);
-    -webkit-backdrop-filter: var(--nav-blur);
+    background-color: var(--color-gold-base);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -141,7 +141,7 @@ body {
 }
 
 .logo {
-    color: var(--text-primary);
+    color: #ffffff; /* Białe logo dla złotego tła */
     font-size: 1.25rem;
     font-weight: 700;
     text-decoration: none;
@@ -151,6 +151,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Delikatny cień dla czytelności na złocie */
 }
 
 
@@ -171,12 +172,12 @@ body {
 }
 
 .nav-links a {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85); /* Lekko złamany biały na złotym tle */
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     letter-spacing: 0.5px;
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
     position: relative;
     padding: 0.5rem 0;
     display: flex;
@@ -186,7 +187,8 @@ body {
 
 .nav-links>li>a:hover,
 .nav-links>li:hover>a {
-    color: var(--text-primary);
+    color: #ffffff; /* Czysty biały na hover */
+    text-shadow: 0 0 12px rgba(255,255,255,0.4);
 }
 
 
@@ -195,7 +197,7 @@ body {
     width: 12px;
     height: 12px;
     transition: transform var(--transition-fast);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .dropdown:hover .dropdown-icon {
@@ -259,9 +261,9 @@ body {
 
 /* ---------------- Przycisk motywu ---------------- */
 .theme-toggle {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.15); /* Półprzezroczysty przycisk na złocie */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -271,14 +273,15 @@ body {
     border-radius: 50%;
     transition: all var(--transition-fast);
     margin-left: 2rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .theme-toggle:hover {
-    color: var(--color-gold-base);
-    border-color: var(--color-gold-base);
+    color: var(--color-gold-dark);
+    background: #ffffff;
+    border-color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .theme-toggle svg {
@@ -549,7 +552,7 @@ footer {
     display: none;
     background: transparent;
     border: none;
-    color: var(--text-primary);
+    color: #ffffff; /* Biały by kontrastować ze złotym nagłówkiem */
     cursor: pointer;
     margin-left: 1rem;
     padding: 0.5rem;
@@ -625,6 +628,24 @@ footer {
         padding: 0.8rem 0;
         width: 100%;
         justify-content: space-between;
+        color: var(--text-secondary); /* Przywrócenie pierwotnego koloru dla bocznego panelu */
+        text-shadow: none; /* Usunięcie białego cienia nadanego na desktopie na złocie */
+    }
+
+    .nav-links>li>a:hover,
+    .nav-links>li:hover>a {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+
+    /* Logo w mobilnym widoku (jeśli byłoby przesuwane wewnątrz nav-links, zostawiamy by logo poza .nav-links mialo nadpisane) */
+    .logo {
+        color: #ffffff; /* Zostaję białe bo logo jest wcież na górnym złotym pasku */
+    }
+
+    /* Dopasowanie dropdown icon na mobile by znów była grafitowa/jasna */
+    .dropdown-icon {
+        opacity: 0.6;
     }
 
     /* Mobile Dropdown styles */
@@ -641,6 +662,19 @@ footer {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+
+    /* Wyłączenie wpływu głównego hovera z desktopu na mobile po dotknięciu/tapnięciu */
+    .nav-links>li:hover .dropdown-menu {
+        transform: none;
+        top: auto;
+    }
+    
+    .nav-links>li:hover:not(.active-dropdown) .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        padding: 0;
     }
 
     /* Accordion active state toggled by JS on the parent <li> */

@@ -1,0 +1,92 @@
+const components = {
+    header: `
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Logo" style="height: 40px; width: auto; object-fit: contain;">
+            5 WDH ,,Złota Piątka"
+        </a>
+        <div style="display: flex; align-items: center;">
+            <ul class="nav-links">
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="kronika.html">Kronika</a></li>
+
+                <li class="dropdown">
+                    <a href="#">
+                        O nas
+                        <!-- Ikonka SVG - strzałka -->
+                        <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="historia-druzyny.html">Historia drużyny</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                        <li><a href="wedrownicy.html">Wędrownicy</a></li>
+                        <li><a href="zastepy.html">Zastępy</a></li>
+                        <li><a href="zuchy.html">Zuchy</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">
+                        Dla rodzica
+                        <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="1-5-procent.html">1,5% dla drużyny</a></li>
+                        <li><a href="dokumenty.html">Dokumenty</a></li>
+                        <li><a href="skladki.html">Składki</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="dla-harcerza.html">Dla harcerza</a></li>
+                <li><a href="dla-zastepowego.html">Dla zastępowego</a></li>
+            </ul>
+
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle" id="theme-toggle" aria-label="Zmień motyw">
+                <!-- Moon icon (for light mode) -->
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <!-- Sun icon (for dark mode) -->
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+
+            <!-- Hamburger Button -->
+            <button class="menu-toggle" id="mobile-menu-toggle" aria-label="Otwórz menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12" class="line1"></line>
+                    <line x1="3" y1="6" x2="21" y2="6" class="line2"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" class="line3"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>`,
+    footer: `
+<footer>
+    <p>&copy; 2026 5 Warszawska Drużyna Harcerzy ,,Złota Piątka", Wszelkie prawa zastrzeżone.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Autor strony: Michał Nowacki HO, <a
+            href="mailto:michal.nowacki@zhr.pl"
+            style="color: var(--color-gold-base); text-decoration: none;">michal.nowacki@zhr.pl</a></p>
+</footer>`
+};

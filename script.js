@@ -11,12 +11,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Funkcja ładująca HTML i wstrzykująca go do danego elementu
     function loadComponent(id, file, callback) {
         const element = document.getElementById(id);
-        if (element) {
+        if (!element) return;
+
+        // Mapowanie plików na klucze w obiekcie 'components' (dla wsparcia file://)
+        const componentKey = file.replace('.html', '');
+        
+        if (typeof components !== 'undefined' && components[componentKey]) {
+            // Używamy predefiniowanego komponentu (bez fetch)
+            element.innerHTML = components[componentKey];
+            if (callback) callback();
+        } else {
+            // Fallback do fetch (jeśli uruchomione na serwerze)
             fetch(file)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok for ' + file);
-                    }
+                    if (!response.ok) throw new Error('Network response was not ok');
                     return response.text();
                 })
                 .then(html => {
@@ -25,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(err => {
                     console.error('Błąd ładowania komponentu:', err);
-                    element.innerHTML = `<p style="color:red;text-align:center;padding:1rem;">Błąd ładowania komponentu (${file}). Uruchom stronę przez serwer (np. Live Server w VSCode).</p>`;
+                    element.innerHTML = `<p style="color:red;text-align:center;padding:1rem;">Błąd ładowania komponentu (${file}).</p>`;
                 });
         }
     }
